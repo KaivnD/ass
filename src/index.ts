@@ -3,4 +3,4 @@ export * from './lib/hash';
 export * from './lib/number';
 import ASS from './lib/ASS';
 
-new ASS(50827);
+new ASS(8080);

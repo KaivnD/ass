@@ -1,22 +1,8 @@
-const WebSocket = require('ws');
+const psList = require('ps-list');
 
-const ws = new WebSocket('wss://echo.websocket.org/', {
-  origin: 'https://websocket.org'
-});
-
-ws.on('open', function open() {
-  console.log('connected');
-  ws.send(Date.now());
-});
-
-ws.on('close', function close() {
-  console.log('disconnected');
-});
-
-ws.on('message', function incoming(data) {
-  console.log(`Roundtrip time: ${Date.now() - data} ms`);
-
-  setTimeout(function timeout() {
-    ws.send(Date.now());
-  }, 500);
-});
+(async () => {
+  const pl = await psList();
+  const ps = pl.findIndex(p => p.name.includes('Photoshop'));
+  console.log(ps);
+  //=> [{pid: 3213, name: 'node', cmd: 'node test.js', ppid: 1, uid: 501, cpu: 0.1, memory: 1.5}, …]
+})();
